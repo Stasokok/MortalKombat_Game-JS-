@@ -61,21 +61,25 @@ function createPlayer(playerObj) {
 
 function changeHP(player) {
 		const $playerLife = document.querySelector('.player'+ player.player +' .life');
-		player.hp -= 20;
+		player.hp -= Math.ceil(Math.random() * 20);
 		$playerLife.style.width = player.hp + '%';
+		console.log($playerLife);
 
-		if (player.hp < 0) {
-			$arenas.appendChild(playerLose(player.name));
+		if (player.hp <= 0) {
+			$playerLife.style.width = '0%';
+			$arenas.appendChild(playerWin(player.name));
+			$randomButton.disabled = true
 		}
 
 }
 
-function playerLose(name) {
-	const $loseTitle = createElement('div', 'loseTitle');
-	$loseTitle.innerText = name + ' ' + 'lose';
+function playerWin(name) {
+	const $winTitle = createElement('div', 'winTitle');
+	$winTitle.innerText = name + ' ' + 'win';
 
-	return $loseTitle
+	return $winTitle
 }
+
 
 $randomButton.addEventListener('click', function() {
 	changeHP(player1);
